@@ -215,504 +215,261 @@ const LandingPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-      {/* Animated Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"></div>
+    <div className="min-h-screen bg-[#0a0c1b] text-white relative overflow-x-hidden">
+      {/* Neon Glow Backgrounds */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-purple-700 opacity-30 rounded-full blur-3xl animate-pulseGlow" />
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-cyan-500 opacity-20 rounded-full blur-3xl animate-pulseGlow" />
+        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 opacity-10 rounded-full blur-3xl animate-pulseGlow" />
       </div>
+      {/* Hero Section */}
+      <section className="relative z-10 flex flex-col items-center justify-center min-h-[60vh] py-20 px-4 text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-[0_2px_24px_rgba(99,102,241,0.4)]"
+        >
+          Build <span className="text-cyan-400">AI Apps</span> <br /> at the Speed of Thought
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="max-w-2xl mx-auto text-lg md:text-2xl text-white/80 mb-10"
+        >
+          The next-gen platform for creating, deploying, and scaling AI-powered products. Experience the future of development with glassy UI, neon accents, and smooth animations.
+        </motion.p>
+        <motion.button
+          whileHover={{ scale: 1.08, boxShadow: '0 0 24px 4px #06b6d4' }}
+          whileTap={{ scale: 0.97 }}
+          onClick={handleGetStarted}
+          className="px-8 py-4 rounded-xl font-bold text-lg bg-cyan-500/80 hover:bg-cyan-400 text-white shadow-lg border border-cyan-400/40 backdrop-blur-md transition-all duration-200"
+        >
+          Get Started
+        </motion.button>
+      </section>
+      {/* Features Section (template) */}
+      <section className="relative z-10 max-w-5xl mx-auto py-16 px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {innovativeFeatures.slice(0,3).map((feature, idx) => (
+          <motion.div
+            key={feature.title}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 + idx * 0.1, duration: 0.7 }}
+            className="bg-white/5 border border-cyan-400/30 rounded-2xl p-8 shadow-xl backdrop-blur-lg flex flex-col items-center text-center hover:border-cyan-400/80 hover:shadow-cyan-400/20 transition-all duration-300 group"
+          >
+            <feature.icon className="h-10 w-10 text-cyan-400 mb-4 drop-shadow-[0_2px_12px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform duration-200" />
+            <h3 className="text-xl font-bold mb-2 text-white drop-shadow">{feature.title}</h3>
+            <p className="text-white/70 mb-2">{feature.description}</p>
+            <span className="text-cyan-400/80 text-xs uppercase tracking-wider">{feature.demo}</span>
+          </motion.div>
+        ))}
+      </section>
 
-      {/* Navigation */}
-      <motion.nav 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/5 backdrop-blur-xl border-b border-white/10"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <motion.div 
-              className="flex items-center space-x-3"
+      {/* Building Blocks Section */}
+      <section className="relative z-10 max-w-7xl mx-auto py-16 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {buildingBlocks.map((block, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 + index * 0.1, duration: 0.7 }}
+            className="bg-white/5 border border-white/10 rounded-2xl p-8 shadow-xl backdrop-blur-lg flex flex-col items-center text-center hover:border-white/20 hover:shadow-white/10 transition-all duration-300"
+          >
+            <div className={`${block.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-4`}>
+              <block.icon className="h-8 w-8 text-white" />
+            </div>
+            <h3 className="text-xl font-bold mb-2 text-white">{block.title}</h3>
+            <p className="text-white/70">{block.description}</p>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="relative z-10 max-w-7xl mx-auto py-16 px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {testimonials.map((testimonial, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 + index * 0.1, duration: 0.7 }}
+            className="bg-white/5 border border-white/10 rounded-2xl p-8 shadow-xl backdrop-blur-lg flex flex-col items-center text-center hover:border-white/20 hover:shadow-white/10 transition-all duration-300"
+          >
+            <div className="flex items-center mb-6">
+              {[...Array(testimonial.rating)].map((_, i) => (
+                <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+              ))}
+            </div>
+            <p className="text-white/90 mb-6 text-lg leading-relaxed">"{testimonial.content}"</p>
+            <div className="flex items-center">
+              <img
+                src={testimonial.avatar}
+                alt={testimonial.name}
+                className="w-16 h-16 rounded-full mr-4 border-2 border-white/20"
+              />
+              <div>
+                <h4 className="text-white font-semibold">{testimonial.name}</h4>
+                <p className="text-white/60 text-sm">{testimonial.role} at {testimonial.company}</p>
+              </div>
+            </div>
+            <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${testimonial.gradient} rounded-t-2xl`}></div>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* Pricing Section */}
+      <section className="relative z-10 max-w-7xl mx-auto py-16 px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {pricingPlans.map((plan, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 + index * 0.1, duration: 0.7 }}
+            className={`relative bg-white/5 border rounded-2xl p-8 transition-all duration-300 ${
+              plan.popular 
+                ? 'border-cyan-400 shadow-2xl shadow-cyan-400/25 scale-105' 
+                : 'border-white/10 hover:border-white/20'
+            }`}
+          >
+            {plan.popular && (
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <div className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-2 rounded-full text-sm font-semibold">
+                  Most Popular
+                </div>
+              </div>
+            )}
+            
+            <div className="text-center mb-8">
+              <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${plan.gradient} flex items-center justify-center`}>
+                <Rocket className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+              <div className="text-5xl font-bold text-white mb-2">
+                {plan.price}
+                <span className="text-lg text-white/60">/month</span>
+              </div>
+              <p className="text-white/70">{plan.description}</p>
+            </div>
+            
+            <ul className="space-y-4 mb-8">
+              {plan.features.map((feature, featureIndex) => (
+                <li key={featureIndex} className="flex items-center text-white/80">
+                  <Check className="h-5 w-5 text-green-400 mr-3 flex-shrink-0" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            
+            <motion.button
               whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
+                plan.popular
+                  ? 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white shadow-lg shadow-cyan-400/25'
+                  : 'border-2 border-white/20 text-white hover:bg-white/10'
+              }`}
             >
+              Get Started
+            </motion.button>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative z-10 max-w-4xl mx-auto py-16 px-4 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="bg-white/5 border border-white/10 rounded-3xl p-12 backdrop-blur-xl"
+        >
+          <h2 className="text-5xl font-bold text-white mb-6">
+            Ready to Build the Future?
+          </h2>
+          <p className="text-xl text-white/80 mb-8">
+            Join the AI revolution and transform your ideas into reality in seconds, not months.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 bg-white/10 border border-white/20 rounded-xl px-6 py-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-500 backdrop-blur-sm"
+            />
+            <motion.button
+              onClick={handleGetStarted}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg shadow-cyan-400/25"
+            >
+              Start Free Trial
+            </motion.button>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-white/10 py-16 px-4 text-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <div className="flex items-center space-x-3 mb-6">
               <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 ProctifyAI
               </span>
-            </motion.div>
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-white/80 hover:text-white transition-colors">Features</a>
-              <a href="#testimonials" className="text-white/80 hover:text-white transition-colors">Testimonials</a>
-              <a href="#pricing" className="text-white/80 hover:text-white transition-colors">Pricing</a>
-              <motion.button 
-                onClick={handleGetStarted}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg shadow-purple-500/25"
-              >
-                Get Started
-              </motion.button>
             </div>
-          </div>
-        </div>
-      </motion.nav>
-
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-full border border-purple-500/30 mb-8 backdrop-blur-sm"
-            >
-              <Zap className="h-4 w-4 text-purple-400 mr-2" />
-              <span className="text-purple-300 text-sm font-medium">AI-Native MVP Builder</span>
-              <ChevronRight className="h-4 w-4 text-purple-400 ml-2" />
-            </motion.div>
-            
-            <motion.h1 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-6xl md:text-8xl font-bold mb-6"
-            >
-              <span className="text-white">Build</span>{' '}
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
-                Smarter
-              </span>
-              <br />
-              <span className="text-white">Launch</span>{' '}
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
-                Faster
-              </span>
-            </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-white/80 mb-12 max-w-4xl mx-auto leading-relaxed"
-            >
-              Transform your wildest ideas into production-ready applications with our revolutionary AI platform. 
-              Generate websites, chatbots, mobile apps, and complete backends in seconds, not months.
-            </motion.p>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-            >
-              <motion.button 
-                onClick={handleGetStarted}
-                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(168, 85, 247, 0.4)" }}
-                whileTap={{ scale: 0.95 }}
-                className="group bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 hover:from-purple-700 hover:via-pink-700 hover:to-red-700 text-white px-8 py-4 rounded-full font-semibold flex items-center justify-center transition-all duration-300 shadow-2xl shadow-purple-500/25"
-              >
-                <Rocket className="mr-3 h-5 w-5 group-hover:animate-bounce" />
-                Start Building Now
-                <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
-              
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="group border-2 border-white/20 text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm flex items-center"
-              >
-                <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                Watch Demo
-              </motion.button>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="grid grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto"
-            >
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">10K+</div>
-                <div className="text-white/60 text-sm">Projects Built</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">60s</div>
-                <div className="text-white/60 text-sm">Average Build Time</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">99.9%</div>
-                <div className="text-white/60 text-sm">Uptime</div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Innovative Features Section */}
-      <section id="features" className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-5xl font-bold text-white mb-6">
-              Revolutionary AI Features
-            </h2>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Experience the future of development with cutting-edge AI that understands, creates, and deploys
+            <p className="text-white/70 mb-6">
+              The AI-native platform for builders who want to launch faster and build smarter.
             </p>
-          </motion.div>
-
-          {/* Interactive Feature Showcase */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              {innovativeFeatures.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  className={`p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
-                    currentFeature === index
-                      ? 'bg-white/10 border-white/30 shadow-2xl'
-                      : 'bg-white/5 border-white/10 hover:bg-white/8'
-                  }`}
-                  onClick={() => setCurrentFeature(index)}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-start space-x-4">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center flex-shrink-0`}>
-                      <feature.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-                      <p className="text-white/70 mb-3">{feature.description}</p>
-                      <p className="text-sm text-purple-300 font-medium">{feature.demo}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentFeature}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="text-center"
-                  >
-                    {(() => {
-                      const CurrentIcon = innovativeFeatures[currentFeature].icon;
-                      return (
-                        <>
-                    <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-r ${innovativeFeatures[currentFeature].gradient} flex items-center justify-center`}>
-                      <CurrentIcon className="h-10 w-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-4">
-                      {innovativeFeatures[currentFeature].title}
-                    </h3>
-                    <p className="text-white/80 mb-6">
-                      {innovativeFeatures[currentFeature].demo}
-                    </p>
-                    <div className="bg-black/20 rounded-xl p-4 font-mono text-sm text-green-400">
-                      <div className="flex items-center mb-2">
-                        <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-                        <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
-                        <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                        <span className="text-white/60 ml-2">ProctifyAI Terminal</span>
-                      </div>
-                      <div className="text-left">
-                        <div className="text-purple-400">$ proctify generate --type=webapp</div>
-                        <div className="text-white/60">✨ Analyzing requirements...</div>
-                        <div className="text-white/60">🧠 Generating architecture...</div>
-                        <div className="text-green-400">✅ MVP ready in 47 seconds!</div>
-                      </div>
-                    </div>
-                        </>
-                      );
-                    })()}
-                  </motion.div>
-                </AnimatePresence>
+            <div className="flex space-x-4">
+              <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
+                <span className="text-white text-sm font-bold">𝕏</span>
               </div>
-            </motion.div>
-          </div>
-
-          {/* Building Blocks Grid */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-16"
-          >
-            <h3 className="text-3xl font-bold text-white text-center mb-12">
-              Everything You Need to Build
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {buildingBlocks.map((block, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05, rotateY: 5 }}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300"
-                >
-                  <div className={`${block.color} w-12 h-12 rounded-xl flex items-center justify-center mb-4`}>
-                    <block.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <h4 className="text-xl font-semibold text-white mb-2">{block.title}</h4>
-                  <p className="text-white/70">{block.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-5xl font-bold text-white mb-6">
-              Loved by Builders Worldwide
-            </h2>
-            <p className="text-xl text-white/80">
-              Join thousands of creators who are building the future with ProctifyAI
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                whileHover={{ scale: 1.05, rotateX: 5 }}
-                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300"
-              >
-                <div className="flex items-center mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-white/90 mb-6 text-lg leading-relaxed">"{testimonial.content}"</p>
-                <div className="flex items-center">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4 border-2 border-white/20"
-                  />
-                  <div>
-                    <h4 className="text-white font-semibold">{testimonial.name}</h4>
-                    <p className="text-white/60 text-sm">{testimonial.role} at {testimonial.company}</p>
-                  </div>
-                </div>
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${testimonial.gradient} rounded-t-2xl`}></div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-5xl font-bold text-white mb-6">
-              Simple, Transparent Pricing
-            </h2>
-            <p className="text-xl text-white/80">
-              Choose the perfect plan for your building journey
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {pricingPlans.map((plan, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -10 }}
-                className={`relative bg-white/5 backdrop-blur-xl border rounded-2xl p-8 transition-all duration-300 ${
-                  plan.popular 
-                    ? 'border-purple-500 shadow-2xl shadow-purple-500/25 scale-105' 
-                    : 'border-white/10 hover:border-white/20'
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full text-sm font-semibold">
-                      Most Popular
-                    </div>
-                  </div>
-                )}
-                
-                <div className="text-center mb-8">
-                  <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${plan.gradient} flex items-center justify-center`}>
-                    <Rocket className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                  <div className="text-5xl font-bold text-white mb-2">
-                    {plan.price}
-                    <span className="text-lg text-white/60">/month</span>
-                  </div>
-                  <p className="text-white/70">{plan.description}</p>
-                </div>
-                
-                <ul className="space-y-4 mb-8">
-                  {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-white/80">
-                      <Check className="h-5 w-5 text-green-400 mr-3 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
-                    plan.popular
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg shadow-purple-500/25'
-                      : 'border-2 border-white/20 text-white hover:bg-white/10'
-                  }`}
-                >
-                  Get Started
-                </motion.button>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-r from-purple-600/20 via-pink-600/20 to-blue-600/20 rounded-3xl p-12 border border-purple-500/30 backdrop-blur-xl"
-          >
-            <h2 className="text-5xl font-bold text-white mb-6">
-              Ready to Build the Future?
-            </h2>
-            <p className="text-xl text-white/80 mb-8">
-              Join the AI revolution and transform your ideas into reality in seconds, not months.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-white/10 border border-white/20 rounded-xl px-6 py-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500 backdrop-blur-sm"
-              />
-              <motion.button
-                onClick={handleGetStarted}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg shadow-purple-500/25"
-              >
-                Start Free Trial
-              </motion.button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-white/10 py-16 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                  <Sparkles className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  ProctifyAI
-                </span>
+              <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
+                <span className="text-white text-sm font-bold">in</span>
               </div>
-              <p className="text-white/70 mb-6">
-                The AI-native platform for builders who want to launch faster and build smarter.
-              </p>
-              <div className="flex space-x-4">
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                  <span className="text-white text-sm font-bold">𝕏</span>
-                </div>
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                  <span className="text-white text-sm font-bold">in</span>
-                </div>
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                  <span className="text-white text-sm font-bold">gh</span>
-                </div>
+              <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
+                <span className="text-white text-sm font-bold">gh</span>
               </div>
             </div>
-            <div>
-              <h4 className="text-white font-semibold mb-6">Product</h4>
-              <ul className="space-y-3 text-white/70">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Templates</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API Reference</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-6">Company</h4>
-              <ul className="space-y-3 text-white/70">
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Press Kit</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-6">Support</h4>
-              <ul className="space-y-3 text-white/70">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Community</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
-              </ul>
-            </div>
           </div>
-          <div className="border-t border-white/10 mt-12 pt-8 text-center text-white/60">
-            <p>&copy; 2024 ProctifyAI. All rights reserved. Built with ❤️ and AI.</p>
+          <div>
+            <h4 className="text-white font-semibold mb-6">Product</h4>
+            <ul className="space-y-3 text-white/70">
+              <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Templates</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">API Reference</a></li>
+            </ul>
           </div>
+          <div>
+            <h4 className="text-white font-semibold mb-6">Company</h4>
+            <ul className="space-y-3 text-white/70">
+              <li><a href="#" className="hover:text-white transition-colors">About</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Press Kit</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-white font-semibold mb-6">Support</h4>
+            <ul className="space-y-3 text-white/70">
+              <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Community</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="border-t border-white/10 mt-12 pt-8 text-center text-white/60">
+          <p>&copy; 2024 ProctifyAI. All rights reserved. Built with ❤️ and AI.</p>
         </div>
       </footer>
     </div>
