@@ -29,6 +29,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useProjects } from '../contexts/ProjectContext';
+import PromptWriter from './PromptWriter';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -93,25 +94,25 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Animated Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
+    <div className="min-h-screen bg-[#0a0c1b] text-white animate-fadeIn">
+      {/* Neon Glow Backgrounds */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-700 opacity-30 rounded-full blur-3xl animate-pulseGlow" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-500 opacity-20 rounded-full blur-3xl animate-pulseGlow animation-delay-2000" />
       </div>
 
       {/* Navigation */}
-      <nav className="bg-white/5 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50">
+      <nav className="bg-white/5 backdrop-blur-xl border-b border-cyan-400/20 sticky top-0 z-50 animate-slideUp">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <motion.div 
               className="flex items-center space-x-3"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-lg flex items-center justify-center shadow-lg">
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              <span className="text-xl font-bold text-white drop-shadow-lg">
                 ProctifyAI
               </span>
             </motion.div>
@@ -123,7 +124,7 @@ const Dashboard: React.FC = () => {
                 onClick={signOut}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-white/80 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-white/10"
+                className="text-white/80 hover:text-cyan-400 transition-colors px-4 py-2 rounded-lg hover:bg-cyan-400/10 border border-cyan-400/20 shadow-md"
               >
                 Sign Out
               </motion.button>
@@ -132,36 +133,40 @@ const Dashboard: React.FC = () => {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Prompt Writer */}
+      <PromptWriter />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         {/* Header */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          transition={{ delay: 0.1, type: 'spring', stiffness: 60 }}
+          className="mb-10"
         >
-          <h1 className="text-4xl font-bold text-white mb-2">Your AI Workshop</h1>
-          <p className="text-white/70 text-lg">Build, deploy, and scale your ideas with intelligent automation</p>
+          <h1 className="text-4xl font-extrabold text-white drop-shadow-lg mb-2">Your AI Workshop</h1>
+          <p className="text-white/80 text-lg">Build, deploy, and scale your ideas with intelligent automation</p>
         </motion.div>
 
         {/* Stats Grid */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8"
+          transition={{ delay: 0.2, type: 'spring', stiffness: 60 }}
+          className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10"
         >
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300"
+              whileHover={{ scale: 1.08, y: -6 }}
+              className="bg-white/5 backdrop-blur-xl border border-cyan-400/20 rounded-2xl p-6 hover:border-cyan-400/60 hover:shadow-cyan-400/10 transition-all duration-300 shadow-lg animate-fadeIn"
             >
               <div className="flex items-center justify-between mb-4">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${stat.gradient} flex items-center justify-center`}>
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-400 flex items-center justify-center shadow-md`}>
                   <stat.icon className="h-6 w-6 text-white" />
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-white">{stat.value}</div>
+                  <div className="text-2xl font-bold text-white drop-shadow-lg">{stat.value}</div>
                   <div className="text-white/60 text-sm">{stat.label}</div>
                 </div>
               </div>
@@ -171,21 +176,21 @@ const Dashboard: React.FC = () => {
 
         {/* Quick Actions */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-8"
+          transition={{ delay: 0.3, type: 'spring', stiffness: 60 }}
+          className="mb-10"
         >
           <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {quickActions.map((action, index) => (
               <motion.button
                 key={index}
-                whileHover={{ scale: 1.05, y: -2 }}
+                whileHover={{ scale: 1.08, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all duration-300 text-left"
+                className="bg-white/5 backdrop-blur-xl border border-cyan-400/20 rounded-xl p-4 hover:border-cyan-400/60 hover:shadow-cyan-400/10 transition-all duration-300 text-left shadow-md animate-fadeIn"
               >
-                <div className={`w-10 h-10 rounded-lg bg-gradient-to-r ${action.gradient} flex items-center justify-center mb-3`}>
+                <div className={`w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-400 flex items-center justify-center mb-3 shadow-sm`}>
                   <action.icon className="h-5 w-5 text-white" />
                 </div>
                 <div className="text-white font-medium text-sm">{action.label}</div>
@@ -196,10 +201,10 @@ const Dashboard: React.FC = () => {
 
         {/* Create New Project */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mb-8"
+          transition={{ delay: 0.4, type: 'spring', stiffness: 60 }}
+          className="mb-10"
         >
           <h2 className="text-2xl font-bold text-white mb-6">Create New Project</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -252,12 +257,12 @@ const Dashboard: React.FC = () => {
 
         {/* Projects Section */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.5, type: 'spring', stiffness: 60 }}
         >
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white">Your Projects</h2>
+            <h2 className="text-2xl font-bold text-white drop-shadow-lg">Your Projects</h2>
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
