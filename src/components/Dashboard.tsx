@@ -1,118 +1,185 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Plus, 
-  Globe, 
+  Shield, 
+  CreditCard, 
+  Database, 
   MessageSquare, 
+  Globe, 
   Smartphone, 
+  Bot, 
+  Mail, 
+  Search, 
+  Users, 
   Settings, 
-  Search,
-  Filter,
-  MoreHorizontal,
-  Calendar,
-  Eye,
-  Download,
-  Trash2,
   Sparkles,
-  Zap,
-  TrendingUp,
-  Users,
-  Clock,
-  Star,
-  Code,
-  Palette,
-  Database,
-  Shield,
-  Layers,
-  GitBranch
+  ArrowRight,
+  Zap
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { useProjects } from '../contexts/ProjectContext';
 import PromptWriter from './PromptWriter';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
-  const { projects } = useProjects();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState('all');
 
-  const projectTypes = [
-    { 
-      id: 'website', 
-      name: 'Next.js Website', 
-      icon: Globe, 
+  const projectCards = [
+    {
+      id: 'auth',
+      title: 'Authentication System',
+      description: 'Complete user authentication with login, signup, and password reset',
+      icon: Shield,
       gradient: 'from-blue-500 to-cyan-500',
-      description: 'Full-stack web applications with SSR',
-      features: ['SEO Optimized', 'Responsive Design', 'API Routes']
+      features: ['JWT Tokens', 'OAuth Integration', 'Password Reset', 'Email Verification'],
+      complexity: 'Medium',
+      estimatedTime: '2-3 hours'
     },
-    { 
-      id: 'chatbot', 
-      name: 'AI Chatbot', 
-      icon: MessageSquare, 
+    {
+      id: 'payment',
+      title: 'Payment Gateway',
+      description: 'Secure payment processing with Stripe integration',
+      icon: CreditCard,
       gradient: 'from-green-500 to-emerald-500',
-      description: 'Intelligent conversational AI agents',
-      features: ['NLP Processing', 'Custom Actions', 'Multi-platform']
+      features: ['Stripe Integration', 'Subscription Billing', 'Invoice Generation', 'Webhook Handling'],
+      complexity: 'High',
+      estimatedTime: '4-6 hours'
     },
-    { 
-      id: 'app', 
-      name: 'React Native App', 
-      icon: Smartphone, 
+    {
+      id: 'database',
+      title: 'Database Setup',
+      description: 'Complete database schema with CRUD operations',
+      icon: Database,
       gradient: 'from-purple-500 to-pink-500',
-      description: 'Cross-platform mobile applications',
-      features: ['Native Performance', 'Push Notifications', 'Offline Support']
+      features: ['PostgreSQL/MongoDB', 'Data Models', 'API Endpoints', 'Data Validation'],
+      complexity: 'Medium',
+      estimatedTime: '3-4 hours'
     },
+    {
+      id: 'chatbot',
+      title: 'AI Chatbot',
+      description: 'Intelligent chatbot with natural language processing',
+      icon: MessageSquare,
+      gradient: 'from-orange-500 to-red-500',
+      features: ['OpenAI Integration', 'Context Memory', 'Custom Actions', 'Multi-language'],
+      complexity: 'High',
+      estimatedTime: '5-7 hours'
+    },
+    {
+      id: 'landing',
+      title: 'Landing Page',
+      description: 'Modern, responsive landing page with SEO optimization',
+      icon: Globe,
+      gradient: 'from-indigo-500 to-purple-500',
+      features: ['Responsive Design', 'SEO Optimized', 'Contact Forms', 'Analytics'],
+      complexity: 'Low',
+      estimatedTime: '1-2 hours'
+    },
+    {
+      id: 'mobile',
+      title: 'Mobile App',
+      description: 'Cross-platform mobile application with React Native',
+      icon: Smartphone,
+      gradient: 'from-pink-500 to-rose-500',
+      features: ['Cross-platform', 'Push Notifications', 'Offline Support', 'App Store Ready'],
+      complexity: 'High',
+      estimatedTime: '6-8 hours'
+    },
+    {
+      id: 'automation',
+      title: 'Workflow Automation',
+      description: 'Automated workflows and business process automation',
+      icon: Bot,
+      gradient: 'from-teal-500 to-cyan-500',
+      features: ['Task Automation', 'Email Triggers', 'API Integrations', 'Scheduling'],
+      complexity: 'Medium',
+      estimatedTime: '3-5 hours'
+    },
+    {
+      id: 'email',
+      title: 'Email System',
+      description: 'Complete email marketing and transactional email system',
+      icon: Mail,
+      gradient: 'from-yellow-500 to-orange-500',
+      features: ['Email Templates', 'Campaign Management', 'Analytics', 'Automation'],
+      complexity: 'Medium',
+      estimatedTime: '2-4 hours'
+    },
+    {
+      id: 'search',
+      title: 'Search Engine',
+      description: 'Advanced search functionality with filters and indexing',
+      icon: Search,
+      gradient: 'from-gray-500 to-slate-500',
+      features: ['Full-text Search', 'Filters', 'Auto-complete', 'Search Analytics'],
+      complexity: 'High',
+      estimatedTime: '4-6 hours'
+    },
+    {
+      id: 'crm',
+      title: 'CRM System',
+      description: 'Customer relationship management with lead tracking',
+      icon: Users,
+      gradient: 'from-violet-500 to-purple-500',
+      features: ['Lead Management', 'Contact Database', 'Sales Pipeline', 'Reporting'],
+      complexity: 'High',
+      estimatedTime: '6-10 hours'
+    },
+    {
+      id: 'admin',
+      title: 'Admin Dashboard',
+      description: 'Complete admin panel with user management and analytics',
+      icon: Settings,
+      gradient: 'from-slate-500 to-gray-500',
+      features: ['User Management', 'Analytics', 'Content Management', 'System Settings'],
+      complexity: 'High',
+      estimatedTime: '5-8 hours'
+    },
+    {
+      id: 'api',
+      title: 'REST API',
+      description: 'Scalable REST API with documentation and testing',
+      icon: Zap,
+      gradient: 'from-amber-500 to-yellow-500',
+      features: ['RESTful Endpoints', 'API Documentation', 'Rate Limiting', 'Testing Suite'],
+      complexity: 'Medium',
+      estimatedTime: '3-5 hours'
+    }
   ];
 
-  const quickActions = [
-    { icon: Code, label: 'Import Code', gradient: 'from-orange-500 to-red-500' },
-    { icon: Palette, label: 'Design System', gradient: 'from-pink-500 to-rose-500' },
-    { icon: Database, label: 'API Builder', gradient: 'from-indigo-500 to-purple-500' },
-    { icon: Shield, label: 'Auth Setup', gradient: 'from-teal-500 to-cyan-500' },
-  ];
-
-  const stats = [
-    { label: 'Total Projects', value: projects.length, icon: Layers, gradient: 'from-blue-500 to-cyan-500' },
-    { label: 'Deployed', value: projects.filter(p => p.status === 'deployed').length, icon: Zap, gradient: 'from-green-500 to-emerald-500' },
-    { label: 'This Month', value: '12', icon: TrendingUp, gradient: 'from-purple-500 to-pink-500' },
-    { label: 'Team Members', value: '1', icon: Users, gradient: 'from-orange-500 to-red-500' },
-  ];
-
-  const filteredProjects = projects.filter(project => {
-    const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = filterType === 'all' || project.type === filterType;
-    return matchesSearch && matchesType;
-  });
-
-  const handleCreateProject = (type: string) => {
-    navigate(`/builder?type=${type}`);
+  const handleCardClick = (projectId: string) => {
+    navigate(`/builder?type=${projectId}`);
   };
 
-  const handleProjectClick = (projectId: string) => {
-    navigate(`/project/${projectId}`);
+  const getComplexityColor = (complexity: string) => {
+    switch (complexity) {
+      case 'Low': return 'text-green-400 bg-green-500/20 border-green-500/30';
+      case 'Medium': return 'text-yellow-400 bg-yellow-500/20 border-yellow-500/30';
+      case 'High': return 'text-red-400 bg-red-500/20 border-red-500/30';
+      default: return 'text-gray-400 bg-gray-500/20 border-gray-500/30';
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0c1b] text-white animate-fadeIn">
-      {/* Neon Glow Backgrounds */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-700 opacity-30 rounded-full blur-3xl animate-pulseGlow" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-500 opacity-20 rounded-full blur-3xl animate-pulseGlow animation-delay-2000" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
       </div>
 
       {/* Navigation */}
-      <nav className="bg-white/5 backdrop-blur-xl border-b border-cyan-400/20 sticky top-0 z-50 animate-slideUp">
+      <nav className="bg-white/5 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <motion.div 
               className="flex items-center space-x-3"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-lg flex items-center justify-center shadow-lg">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-lg">
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-white drop-shadow-lg">
+              <span className="text-xl font-bold text-white">
                 ProctifyAI
               </span>
             </motion.div>
@@ -124,7 +191,7 @@ const Dashboard: React.FC = () => {
                 onClick={signOut}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-white/80 hover:text-cyan-400 transition-colors px-4 py-2 rounded-lg hover:bg-cyan-400/10 border border-cyan-400/20 shadow-md"
+                className="text-white/80 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-white/10 border border-white/20"
               >
                 Sign Out
               </motion.button>
@@ -133,291 +200,93 @@ const Dashboard: React.FC = () => {
         </div>
       </nav>
 
-      {/* Prompt Writer */}
-      <PromptWriter />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-        {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, type: 'spring', stiffness: 60 }}
-          className="mb-10"
-        >
-          <h1 className="text-4xl font-extrabold text-white drop-shadow-lg mb-2">Your AI Workshop</h1>
-          <p className="text-white/80 text-lg">Build, deploy, and scale your ideas with intelligent automation</p>
-        </motion.div>
+        {/* Prompt Writer */}
+        <PromptWriter />
 
-        {/* Stats Grid */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, type: 'spring', stiffness: 60 }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.08, y: -6 }}
-              className="bg-white/5 backdrop-blur-xl border border-cyan-400/20 rounded-2xl p-6 hover:border-cyan-400/60 hover:shadow-cyan-400/10 transition-all duration-300 shadow-lg animate-fadeIn"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-400 flex items-center justify-center shadow-md`}>
-                  <stat.icon className="h-6 w-6 text-white" />
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-white drop-shadow-lg">{stat.value}</div>
-                  <div className="text-white/60 text-sm">{stat.label}</div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Quick Actions */}
+        {/* Project Cards Section */}
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, type: 'spring', stiffness: 60 }}
-          className="mb-10"
+          className="mt-16"
         >
-          <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {quickActions.map((action, index) => (
-              <motion.button
-                key={index}
-                whileHover={{ scale: 1.08, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white/5 backdrop-blur-xl border border-cyan-400/20 rounded-xl p-4 hover:border-cyan-400/60 hover:shadow-cyan-400/10 transition-all duration-300 text-left shadow-md animate-fadeIn"
-              >
-                <div className={`w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-400 flex items-center justify-center mb-3 shadow-sm`}>
-                  <action.icon className="h-5 w-5 text-white" />
-                </div>
-                <div className="text-white font-medium text-sm">{action.label}</div>
-              </motion.button>
-            ))}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">Choose Your Project Type</h2>
+            <p className="text-white/70 text-lg max-w-2xl mx-auto">
+              Select from our pre-built templates or describe your custom project in the prompt above
+            </p>
           </div>
-        </motion.div>
 
-        {/* Create New Project */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, type: 'spring', stiffness: 60 }}
-          className="mb-10"
-        >
-          <h2 className="text-2xl font-bold text-white mb-6">Create New Project</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {projectTypes.map((type, index) => (
-              <motion.button
-                key={type.id}
-                onClick={() => handleCreateProject(type.id)}
-                whileHover={{ scale: 1.02, y: -5 }}
-                whileTap={{ scale: 0.98 }}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {projectCards.map((card, index) => (
+              <motion.div
+                key={card.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index }}
-                className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 text-left relative overflow-hidden"
+                whileHover={{ scale: 1.02, y: -5 }}
+                onClick={() => handleCardClick(card.id)}
+                className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer relative overflow-hidden"
               >
-                <div className={`absolute inset-0 bg-gradient-to-r ${type.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${type.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <type.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-white transition-colors">
-                  {type.name}
-                </h3>
-                <p className="text-white/70 mb-4 group-hover:text-white/80 transition-colors">
-                  {type.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {type.features.map((feature, featureIndex) => (
-                    <span 
-                      key={featureIndex}
-                      className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/80 group-hover:bg-white/20 transition-colors"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex items-center text-purple-400 group-hover:text-purple-300 transition-colors">
-                  <Plus className="h-4 w-4 mr-2" />
-                  <span className="text-sm font-medium">Start Building</span>
-                  <motion.div
-                    className="ml-auto"
-                    initial={{ x: 0 }}
-                    whileHover={{ x: 5 }}
-                  >
-                    <Zap className="h-4 w-4" />
-                  </motion.div>
-                </div>
-              </motion.button>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Projects Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, type: 'spring', stiffness: 60 }}
-        >
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white drop-shadow-lg">Your Projects</h2>
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
-                <input
-                  type="text"
-                  placeholder="Search projects..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="bg-white/10 border border-white/20 rounded-xl pl-10 pr-4 py-3 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500 backdrop-blur-sm"
-                />
-              </div>
-              <div className="flex items-center space-x-2">
-                <Filter className="h-4 w-4 text-white/60" />
-                <select
-                  value={filterType}
-                  onChange={(e) => setFilterType(e.target.value)}
-                  className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 backdrop-blur-sm"
-                >
-                  <option value="all">All Types</option>
-                  <option value="website">Websites</option>
-                  <option value="chatbot">Chatbots</option>
-                  <option value="app">Mobile Apps</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {/* Projects Grid */}
-          <AnimatePresence>
-            {filteredProjects.length === 0 ? (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="text-center py-16"
-              >
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-12 max-w-md mx-auto">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Sparkles className="h-8 w-8 text-white" />
+                {/* Gradient overlay on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${card.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
+                
+                <div className="relative z-10">
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${card.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <card.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <div className={`px-3 py-1 rounded-full text-xs font-medium border ${getComplexityColor(card.complexity)}`}>
+                      {card.complexity}
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-3">No Projects Yet</h3>
-                  <p className="text-white/70 mb-6">
-                    Create your first AI-powered project to get started
+
+                  {/* Content */}
+                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-white transition-colors">
+                    {card.title}
+                  </h3>
+                  <p className="text-white/70 text-sm mb-4 group-hover:text-white/80 transition-colors line-clamp-2">
+                    {card.description}
                   </p>
-                  <motion.button
-                    onClick={() => handleCreateProject('website')}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg shadow-purple-500/25"
-                  >
-                    Create Project
-                  </motion.button>
+
+                  {/* Features */}
+                  <div className="flex flex-wrap gap-1 mb-4">
+                    {card.features.slice(0, 2).map((feature, featureIndex) => (
+                      <span 
+                        key={featureIndex}
+                        className="px-2 py-1 bg-white/10 rounded-md text-xs text-white/70 group-hover:bg-white/20 transition-colors"
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                    {card.features.length > 2 && (
+                      <span className="px-2 py-1 bg-white/10 rounded-md text-xs text-white/70 group-hover:bg-white/20 transition-colors">
+                        +{card.features.length - 2} more
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Footer */}
+                  <div className="flex items-center justify-between">
+                    <div className="text-white/60 text-xs">
+                      Est. {card.estimatedTime}
+                    </div>
+                    <div className="flex items-center text-purple-400 group-hover:text-purple-300 transition-colors">
+                      <span className="text-sm font-medium mr-2">Build</span>
+                      <motion.div
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 5 }}
+                      >
+                        <ArrowRight className="h-4 w-4" />
+                      </motion.div>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProjects.map((project, index) => {
-                  const projectType = projectTypes.find(t => t.id === project.type);
-                  return (
-                    <motion.div
-                      key={project.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileHover={{ scale: 1.02, y: -5 }}
-                      className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 cursor-pointer relative overflow-hidden"
-                      onClick={() => handleProjectClick(project.id)}
-                    >
-                      <div className={`absolute inset-0 bg-gradient-to-r ${projectType?.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
-                      
-                      <div className="flex items-start justify-between mb-4">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${projectType?.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                          {projectType?.icon && <projectType.icon className="h-6 w-6 text-white" />}
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            project.status === 'deployed' 
-                              ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-                              : project.status === 'building'
-                              ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-                              : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
-                          }`}>
-                            {project.status}
-                          </div>
-                          <button 
-                            className="text-white/60 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <MoreHorizontal className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </div>
-                      
-                      <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-white transition-colors">
-                        {project.name}
-                      </h3>
-                      <p className="text-white/70 text-sm mb-4 group-hover:text-white/80 transition-colors">
-                        {project.description}
-                      </p>
-                      
-                      <div className="flex items-center justify-between text-sm text-white/60 mb-4">
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 mr-1" />
-                          {project.lastModified}
-                        </div>
-                        <div className="flex items-center">
-                          <Clock className="h-4 w-4 mr-1" />
-                          <span>2 min read</span>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.features.slice(0, 2).map((feature, featureIndex) => (
-                          <span 
-                            key={featureIndex}
-                            className="px-2 py-1 bg-white/10 rounded-md text-xs text-white/70 group-hover:bg-white/20 transition-colors"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                        {project.features.length > 2 && (
-                          <span className="px-2 py-1 bg-white/10 rounded-md text-xs text-white/70 group-hover:bg-white/20 transition-colors">
-                            +{project.features.length - 2} more
-                          </span>
-                        )}
-                      </div>
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <button 
-                            className="flex items-center text-purple-400 hover:text-purple-300 transition-colors text-sm"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <Eye className="h-4 w-4 mr-1" />
-                            Preview
-                          </button>
-                          <button 
-                            className="flex items-center text-blue-400 hover:text-blue-300 transition-colors text-sm"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <Download className="h-4 w-4 mr-1" />
-                            Export
-                          </button>
-                        </div>
-                        <div className="flex items-center text-yellow-400">
-                          <Star className="h-4 w-4 fill-current" />
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            )}
-          </AnimatePresence>
+            ))}
+          </div>
         </motion.div>
       </div>
     </div>
