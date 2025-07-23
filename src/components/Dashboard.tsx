@@ -198,7 +198,7 @@ const Dashboard: React.FC = () => {
                 {suggestion}
               </motion.button>
             ))}
-          </div>
+          </motion.div>
         </div>
       </main>
     </div>
